@@ -69,6 +69,11 @@
         transform: scale(1.05);
     }
     
+    /* Exception: center crop for images that need both top and bottom visible */
+    #gallery .cs-image.cs-center-crop img {
+        object-position: center;
+    }
+    
     /* Hidden images */
     #gallery .cs-image.cs-hidden {
         display: none;
