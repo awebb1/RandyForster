@@ -69,9 +69,9 @@
         transform: scale(1.05);
     }
     
-    /* Exception: center crop for images that need both top and bottom visible */
-    #gallery .cs-image.cs-center-crop img {
-        object-position: center;
+    /* Exception: pic01 - stretch to fill entire box */
+    #gallery #pic01 img {
+        object-fit: fill;
     }
     
     /* Hidden images */
