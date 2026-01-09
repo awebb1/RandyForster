@@ -32,31 +32,17 @@
         <title>Randy Forster | Delaware Magician & Comedy Magic | Delmarva & Eastern Shore</title>
         <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 
-        <!-- Critical inline CSS for immediate render -->
-        <style>
-            *,*:before,*:after{margin:0;padding:0;box-sizing:border-box}
-            html{font-size:100%;scroll-behavior:smooth}
-            body{font-family:Roboto,Arial,sans-serif;font-size:1rem;line-height:1.5;background:#fff;color:#1a1a1a}
-            body.dark-mode{background:#0a0a0a;color:#f7f7f7}
-            #cs-navigation{width:100%;padding:1rem;position:fixed;top:0;left:0;z-index:10000;background:#fff}
-            body.dark-mode #cs-navigation{background:#0a0a0a}
-            #hero{min-height:100vh;display:flex;align-items:center}
-            .cs-modal{position:fixed;top:0;left:0;right:0;bottom:0;opacity:0;visibility:hidden;z-index:10001}.cs-modal.cs-active{opacity:1;visibility:visible}
-        </style>
+        <!-- Critical CSS (above the fold) - loaded normally -->
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/nav.css">
+        <link rel="stylesheet" href="css/dark.css">
+        <link rel="stylesheet" href="css/hero.css">
         
-        <!-- Deferred CSS - all styles loaded asynchronously -->
-        <link rel="preload" href="css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <link rel="preload" href="css/nav.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <link rel="preload" href="css/dark.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <link rel="preload" href="css/hero.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <!-- Non-critical CSS (below the fold) - deferred -->
         <link rel="preload" href="css/testimonials.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <link rel="preload" href="css/gallery.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <link rel="preload" href="css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript>
-            <link rel="stylesheet" href="css/main.css">
-            <link rel="stylesheet" href="css/nav.css">
-            <link rel="stylesheet" href="css/dark.css">
-            <link rel="stylesheet" href="css/hero.css">
             <link rel="stylesheet" href="css/testimonials.css">
             <link rel="stylesheet" href="css/gallery.css">
             <link rel="stylesheet" href="css/footer.css">
