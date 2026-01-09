@@ -15,7 +15,7 @@
         flex-direction: column;
         align-items: center;
         /* 48px - 64px */
-        gap: clamp(3rem, 6vw, 4rem);
+        gap: clamp(2rem, 4vw, 2.5rem);
         position: relative;
     }
     #gallery .cs-content {
@@ -48,6 +48,11 @@
         overflow: hidden;
         display: block;
         position: relative;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    #gallery .cs-image:hover {
+        transform: scale(1.02);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     }
     #gallery .cs-image img {
         position: absolute;
@@ -57,8 +62,95 @@
         width: 100%;
         /* makes it act like a background image */
         object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+    #gallery .cs-image:hover img {
+        transform: scale(1.05);
+    }
+    
+    /* Hidden images - collapsed by default */
+    #gallery .cs-image.cs-hidden {
+        display: none;
+        opacity: 0;
+        transform: translateY(1rem);
+    }
+    
+    /* When gallery is expanded */
+    #gallery.cs-expanded .cs-image.cs-hidden {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+        animation: fadeInUp 0.4s ease forwards;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(1rem);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Staggered animation for each hidden image */
+    #gallery.cs-expanded .cs-image.cs-hidden:nth-of-type(9) { animation-delay: 0s; }
+    #gallery.cs-expanded .cs-image.cs-hidden:nth-of-type(10) { animation-delay: 0.05s; }
+    #gallery.cs-expanded .cs-image.cs-hidden:nth-of-type(11) { animation-delay: 0.1s; }
+    #gallery.cs-expanded .cs-image.cs-hidden:nth-of-type(12) { animation-delay: 0.15s; }
+    #gallery.cs-expanded .cs-image.cs-hidden:nth-of-type(13) { animation-delay: 0.2s; }
+    #gallery.cs-expanded .cs-image.cs-hidden:nth-of-type(14) { animation-delay: 0.25s; }
+    
+    /* Toggle button styling */
+    #gallery .cs-gallery-toggle {
+        font-size: 1rem;
+        line-height: 3rem;
+        text-decoration: none;
+        font-weight: 700;
+        text-align: center;
+        color: #fff;
+        min-width: 10rem;
+        padding: 0 1.5rem;
+        background-color: var(--primary);
+        border: none;
+        border-radius: 0.25rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+        box-sizing: border-box;
+        transition: background-color 0.3s ease;
+    }
+    #gallery .cs-gallery-toggle:before {
+        content: "";
+        position: absolute;
+        height: 100%;
+        width: 0%;
+        background: #000;
+        opacity: 1;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        border-radius: 0.25rem;
+        transition: width 0.3s;
+    }
+    #gallery .cs-gallery-toggle:hover:before {
+        width: 100%;
+    }
+    #gallery .cs-toggle-icon {
+        transition: transform 0.3s ease;
+    }
+    
+    /* Rotate arrow when expanded */
+    #gallery.cs-expanded .cs-gallery-toggle .cs-toggle-icon {
+        transform: rotate(180deg);
     }
 }
+
 /* Dark Mode */
 @media only screen and (min-width: 0rem) {
     body.dark-mode #gallery .cs-title {
@@ -66,6 +158,16 @@
     }
     body.dark-mode #gallery .cs-topper {
         color: var(--primaryLight);
+    }
+    body.dark-mode #gallery .cs-gallery-toggle {
+        color: #000;
+        background-color: var(--primaryLight);
+    }
+    body.dark-mode #gallery .cs-gallery-toggle:before {
+        background: var(--bodyTextColorWhite);
+    }
+    body.dark-mode #gallery .cs-image:hover {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     }
 }
                                 

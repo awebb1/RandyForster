@@ -114,6 +114,35 @@
     #footer .cs-nav-link:hover:before {
         width: 100%;
     }
+    #footer .cs-location {
+        color: #666;
+        cursor: default;
+    }
+    #footer .cs-location:before {
+        display: none;
+    }
+    #footer .cs-footer-save-contact {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        border-radius: 0.25rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+    #footer .cs-footer-save-contact:hover {
+        background: #000;
+        transform: translateY(-2px);
+    }
+    #footer .cs-footer-save-contact svg {
+        flex-shrink: 0;
+    }
     #footer .cs-bottom {
         text-align: right;
         align-items: right;
@@ -183,6 +212,16 @@
     }
     body.dark-mode #footer .cs-copyright {
         color: #b4b2c7;
+    }
+    body.dark-mode #footer .cs-location {
+        color: #888;
+    }
+    body.dark-mode #footer .cs-footer-save-contact {
+        background: var(--primaryLight);
+        color: #000;
+    }
+    body.dark-mode #footer .cs-footer-save-contact:hover {
+        background: #fff;
     }
 }
 

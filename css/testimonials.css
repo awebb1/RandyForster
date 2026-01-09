@@ -12,150 +12,157 @@
     }
     #testimonials .cs-container {
         width: 100%;
-        /* changes to 1280px at tablet */
-        max-width: 36.5rem;
+        max-width: 50rem;
         margin: auto;
         display: flex;
         flex-direction: column;
         align-items: center;
-        /* 48px - 64px */
-        gap: clamp(3rem, 6vw, 4rem);
+        gap: clamp(1.5rem, 3vw, 2rem);
     }
     #testimonials .cs-content {
-        /* set text align to left if content needs to be left aligned */
         text-align: center;
         width: 100%;
-        max-width: 56.25rem;
         display: flex;
         flex-direction: column;
-        /* centers content horizontally, set to flex-start to left align */
         align-items: center;
     }
-
     #testimonials .cs-title {
-        /* 20 characters including spaces */
         max-width: 20ch;
         margin: 0;
     }
-    #testimonials .cs-card-group {
+    
+    /* Carousel Wrapper */
+    #testimonials .cs-carousel-wrapper {
         width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        position: relative;
+    }
+    
+    /* Carousel Track - contains the testimonials */
+    #testimonials .cs-carousel-track {
+        flex: 1;
+        position: relative;
+        min-height: 10rem;
+    }
+    
+    /* Card group - holds all items, positioned absolutely */
+    #testimonials .cs-card-group {
         padding: 0;
         margin: 0;
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-    }
-    #testimonials .cs-item {
         list-style: none;
+        position: relative;
         width: 100%;
-        /* 16px - 32px */
-        padding: clamp(1rem, 3.1vw, 2rem);
-        /* prevents padding from adding to height and width */
+    }
+    
+    /* Individual testimonial item - stacked on top of each other */
+    #testimonials .cs-item {
+        width: 100%;
+        padding: 1rem;
         box-sizing: border-box;
         display: flex;
-        justify-content: center;
-        align-items: flex-start;
         flex-direction: column;
-        grid-column: span 12;
-        position: relative;
-    }
-    #testimonials .cs-item:last-of-type:after {
-        display: none;
-    }
-    #testimonials .cs-item:after {
-        content: "";
-        width: 100%;
-        height: 1px;
-        margin: 2rem 0 0 0;
-        background: #e8e8e8;
-        opacity: 1;
-        position: relative;
-        display: block;
-    }
-    #testimonials .cs-flex-group {
-        width: 100%;
-        margin: 0 0 1.75rem 0;
-        display: flex;
-        justify-content: flex-start;
         align-items: center;
-        gap: 0.75rem;
-    }
-    #testimonials .cs-profile {
-        width: 3.125rem;
-        height: 3.125rem;
-        border: 2px solid #bababa;
-        background-color: #bababa;
-        border-radius: 50%;
-        /* clips image corners to make circle */
-        overflow: hidden;
-        position: relative;
-        display: block;
-    }
-    #testimonials .cs-profile img {
+        text-align: center;
         position: absolute;
         top: 0;
         left: 0;
-        height: 100%;
-        width: 100%;
-        /* makes the image behave like a background image */
-        object-fit: cover;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
     }
+    
+    #testimonials .cs-item.cs-active {
+        opacity: 1;
+        visibility: visible;
+        position: relative;
+    }
+    
+    #testimonials .cs-flex-group {
+        margin-bottom: 0.75rem;
+    }
+    
     #testimonials .cs-name {
-        /* 20px - 25px */
-        font-size: clamp(1.25rem, 2vw, 1.5625rem);
-        line-height: 1.5em;
+        font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+        line-height: 1.4em;
         font-weight: 700;
-        margin: 0;
         color: var(--primary);
         display: block;
     }
-    #testimonials .cs-job {
-        font-size: 0.875rem;
-        line-height: 1.2em;
-        font-weight: 400;
-        margin: 0;
-        color: var(--bodyTextColor);
-        display: block;
-    }
+    
     #testimonials .cs-review {
-        /* 14px - 16px */
-        font-size: clamp(0.875rem, 1.5vw, 1rem);
-        line-height: 1.5em;
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        line-height: 1.7em;
+        font-style: italic;
         margin: 0;
-        max-width: 27.75rem;
         color: var(--bodyTextColor);
     }
-
-    #testimonials .cs-review-stars {
-        /* 14px - 16px */
-        font-size: clamp(2.875rem, 3.5vw, 3rem);
-        line-height: 1.5em;
-        margin: 0;
-        max-width: 27.75rem;
-        color: var(--bodyTextColor);
+    
+    /* Carousel Arrows */
+    #testimonials .cs-carousel-arrow {
+        flex-shrink: 0;
+        width: 2.75rem;
+        height: 2.75rem;
+        background: var(--primary);
+        border: none;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        color: #fff;
+        transition: background-color 0.3s, transform 0.3s;
+        z-index: 2;
+    }
+    #testimonials .cs-carousel-arrow:hover {
+        background: #000;
+        transform: scale(1.1);
+    }
+    #testimonials .cs-carousel-arrow svg {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+    
+    /* Carousel Dots */
+    #testimonials .cs-carousel-dots {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+    #testimonials .cs-carousel-dot {
+        width: 0.5rem;
+        height: 0.5rem;
+        background: #ccc;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+        padding: 0;
+    }
+    #testimonials .cs-carousel-dot:hover {
+        background: var(--primary);
+    }
+    #testimonials .cs-carousel-dot.cs-active {
+        background: var(--primary);
+        transform: scale(1.5);
     }
 }
+
 /* Desktop - 1024px */
 @media only screen and (min-width: 64rem) {
-    #testimonials .cs-container {
-        max-width: 80rem;
+    #testimonials .cs-carousel-arrow {
+        width: 3rem;
+        height: 3rem;
     }
-    #testimonials .cs-card-group {
-        gap: 2.5rem;
-    }
-    #testimonials .cs-item {
-        grid-column: span 3;
-        position: relative;
-    }
-    #testimonials .cs-item:after {
-        width: 1px;
-        height: 80%;
-        margin: 0;
-        position: absolute;
-        right: -1.25rem;
-        top: 50%;
-        transform: translateY(-50%);
+    
+    #testimonials .cs-carousel-arrow svg {
+        width: 1.5rem;
+        height: 1.5rem;
     }
 }
+
 /* Dark Mode */
 @media only screen and (min-width: 0rem) {
     body.dark-mode #testimonials .cs-topper,
@@ -163,25 +170,27 @@
         color: var(--primaryLight);
     }
     body.dark-mode #testimonials .cs-title,
-    body.dark-mode #testimonials .cs-text,
-    body.dark-mode #testimonials .cs-review,
-    body.dark-mode #testimonials .cs-review-stars,
-    body.dark-mode #testimonials .cs-job,
-    body.dark-mode #testimonials .cs-desc {
+    body.dark-mode #testimonials .cs-review {
         color: var(--bodyTextColorWhite);
     }
-    body.dark-mode #testimonials .cs-text,
-    body.dark-mode #testimonials .cs-desc,
-    body.dark-mode #testimonials .cs-review,
-    body.dark-mode #testimonials .cs-review-stars {
-        opacity: 0.8;
-    }
-    body.dark-mode #testimonials .cs-item:after {
-        opacity: 0.2;
+    body.dark-mode #testimonials .cs-review {
+        opacity: 0.9;
     }
     body.dark-mode #testimonials {
         background-color: rgba(0, 0, 0, 0.2);
     }
+    body.dark-mode #testimonials .cs-carousel-arrow {
+        background: var(--primaryLight);
+        color: #000;
+    }
+    body.dark-mode #testimonials .cs-carousel-arrow:hover {
+        background: var(--bodyTextColorWhite);
+    }
+    body.dark-mode #testimonials .cs-carousel-dot {
+        background: rgba(255, 255, 255, 0.3);
+    }
+    body.dark-mode #testimonials .cs-carousel-dot:hover,
+    body.dark-mode #testimonials .cs-carousel-dot.cs-active {
+        background: var(--primaryLight);
+    }
 }
-
-                                
