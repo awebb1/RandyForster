@@ -44,7 +44,9 @@
     #testimonials .cs-carousel-track {
         flex: 1;
         position: relative;
-        min-height: 10rem;
+        /* Fixed height to prevent layout shifts - accommodates longest quote on mobile */
+        height: 18rem;
+        overflow: hidden;
     }
     
     /* Card group - holds all items, positioned absolutely */
@@ -54,6 +56,7 @@
         list-style: none;
         position: relative;
         width: 100%;
+        height: 100%;
     }
     
     /* Individual testimonial item - stacked on top of each other */
@@ -64,10 +67,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         text-align: center;
         position: absolute;
         top: 0;
         left: 0;
+        right: 0;
+        bottom: 0;
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.5s ease, visibility 0.5s ease;
@@ -76,7 +82,6 @@
     #testimonials .cs-item.cs-active {
         opacity: 1;
         visibility: visible;
-        position: relative;
     }
     
     #testimonials .cs-flex-group {
@@ -164,8 +169,19 @@
     }
 }
 
+/* Tablet - 600px */
+@media only screen and (min-width: 37.5rem) {
+    #testimonials .cs-carousel-track {
+        height: 12rem;
+    }
+}
+
 /* Desktop - 1024px */
 @media only screen and (min-width: 64rem) {
+    #testimonials .cs-carousel-track {
+        height: 9rem;
+    }
+    
     #testimonials .cs-carousel-arrow {
         width: 3rem;
         height: 3rem;

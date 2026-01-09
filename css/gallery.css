@@ -62,45 +62,41 @@
         width: 100%;
         /* makes it act like a background image */
         object-fit: cover;
+        object-position: top;
         transition: transform 0.4s ease;
     }
     #gallery .cs-image:hover img {
         transform: scale(1.05);
     }
     
-    /* Hidden images - collapsed by default */
+    /* Hidden images */
     #gallery .cs-image.cs-hidden {
         display: none;
         opacity: 0;
         transform: translateY(1rem);
     }
     
-    /* When gallery is expanded */
-    #gallery.cs-expanded .cs-image.cs-hidden {
+    /* Revealed images get animation */
+    #gallery .cs-image.cs-revealed {
         display: block;
-        opacity: 1;
-        transform: translateY(0);
-        animation: fadeInUp 0.4s ease forwards;
+        opacity: 0;
+        transform: translateY(1.5rem) scale(0.98);
+        animation: fadeInUp 0.6s ease-out forwards;
     }
     
     @keyframes fadeInUp {
-        from {
+        0% {
             opacity: 0;
-            transform: translateY(1rem);
+            transform: translateY(1.5rem) scale(0.98);
         }
-        to {
+        60% {
+            opacity: 0.8;
+        }
+        100% {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
     }
-    
-    /* Staggered animation for each hidden image */
-    #gallery.cs-expanded .cs-image.cs-hidden:nth-of-type(9) { animation-delay: 0s; }
-    #gallery.cs-expanded .cs-image.cs-hidden:nth-of-type(10) { animation-delay: 0.05s; }
-    #gallery.cs-expanded .cs-image.cs-hidden:nth-of-type(11) { animation-delay: 0.1s; }
-    #gallery.cs-expanded .cs-image.cs-hidden:nth-of-type(12) { animation-delay: 0.15s; }
-    #gallery.cs-expanded .cs-image.cs-hidden:nth-of-type(13) { animation-delay: 0.2s; }
-    #gallery.cs-expanded .cs-image.cs-hidden:nth-of-type(14) { animation-delay: 0.25s; }
     
     /* Toggle button styling */
     #gallery .cs-gallery-toggle {
@@ -145,8 +141,8 @@
         transition: transform 0.3s ease;
     }
     
-    /* Rotate arrow when expanded */
-    #gallery.cs-expanded .cs-gallery-toggle .cs-toggle-icon {
+    /* Rotate arrow when fully expanded */
+    #gallery.cs-fully-expanded .cs-gallery-toggle .cs-toggle-icon {
         transform: rotate(180deg);
     }
 }
