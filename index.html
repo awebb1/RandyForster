@@ -9,13 +9,23 @@
         <title>Randy Forster Magic In Delaware</title>
         <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 
-        <link rel="stylesheet" type="text/css" href="css/main.css">
-        <link rel="stylesheet" type="text/css" href="css/nav.css">
-        <link rel="stylesheet" type="text/css" href="css/dark.css">
-        <link rel="stylesheet" type="text/css" href="css/hero.css">
-        <link rel="stylesheet" type="text/css" href="css/testimonials.css">
-        <link rel="stylesheet" type="text/css" href="css/gallery.css">
-        <link rel="stylesheet" type="text/css" href="css/footer.css">
+        <!-- Critical CSS (above the fold) -->
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/nav.css">
+        <link rel="stylesheet" href="css/dark.css">
+        <link rel="stylesheet" href="css/hero.css">
+        
+        <!-- Non-critical CSS (deferred) -->
+        <link rel="preload" href="css/testimonials.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="preload" href="css/gallery.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="preload" href="css/footer.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript>
+            <link rel="stylesheet" href="css/testimonials.css">
+            <link rel="stylesheet" href="css/gallery.css">
+            <link rel="stylesheet" href="css/footer.css">
+        </noscript>
+        
+        <!-- Preload hero image -->
         <link rel="preload" as="image" href="img/image00.webp"> 
     </head>
 
@@ -412,181 +422,9 @@
             </div>
         </div>
 
-       <script src="js/nav.js"></script>
-        <script src="js/dark.js"></script>
-        <script>
-            // Gallery toggle functionality
-            const galleryToggle = document.getElementById('gallery-toggle');
-            const gallery = document.getElementById('gallery');
-            const toggleText = galleryToggle.querySelector('.cs-toggle-text');
-            
-            galleryToggle.addEventListener('click', function() {
-                gallery.classList.toggle('cs-expanded');
-                toggleText.textContent = gallery.classList.contains('cs-expanded') ? 'View Less' : 'View More';
-            });
-
-            // Testimonials Carousel - Single item fade
-            (function() {
-                const items = document.querySelectorAll('#testimonials .cs-item');
-                const prevBtn = document.querySelector('#testimonials .cs-prev');
-                const nextBtn = document.querySelector('#testimonials .cs-next');
-                const dotsContainer = document.querySelector('#testimonials .cs-carousel-dots');
-                
-                let currentIndex = 0;
-                let autoplayInterval;
-                
-                // Create dots
-                function createDots() {
-                    dotsContainer.innerHTML = '';
-                    items.forEach((_, i) => {
-                        const dot = document.createElement('button');
-                        dot.classList.add('cs-carousel-dot');
-                        dot.setAttribute('aria-label', `Go to testimonial ${i + 1}`);
-                        if (i === 0) dot.classList.add('cs-active');
-                        dot.addEventListener('click', () => goToSlide(i));
-                        dotsContainer.appendChild(dot);
-                    });
-                }
-                
-                // Update active states
-                function updateCarousel() {
-                    items.forEach((item, i) => {
-                        item.classList.toggle('cs-active', i === currentIndex);
-                    });
-                    const dots = document.querySelectorAll('#testimonials .cs-carousel-dot');
-                    dots.forEach((dot, i) => {
-                        dot.classList.toggle('cs-active', i === currentIndex);
-                    });
-                }
-                
-                // Go to specific slide
-                function goToSlide(index) {
-                    currentIndex = index;
-                    if (currentIndex >= items.length) currentIndex = 0;
-                    if (currentIndex < 0) currentIndex = items.length - 1;
-                    updateCarousel();
-                }
-                
-                // Next slide
-                function nextSlide() {
-                    goToSlide(currentIndex + 1);
-                }
-                
-                // Previous slide
-                function prevSlide() {
-                    goToSlide(currentIndex - 1);
-                }
-                
-                // Autoplay
-                function startAutoplay() {
-                    autoplayInterval = setInterval(nextSlide, 5000);
-                }
-                
-                function stopAutoplay() {
-                    clearInterval(autoplayInterval);
-                }
-                
-                // Event listeners
-                prevBtn.addEventListener('click', () => {
-                    prevSlide();
-                    stopAutoplay();
-                    startAutoplay();
-                });
-                
-                nextBtn.addEventListener('click', () => {
-                    nextSlide();
-                    stopAutoplay();
-                    startAutoplay();
-                });
-                
-                // Pause on hover
-                const wrapper = document.querySelector('#testimonials .cs-carousel-wrapper');
-                wrapper.addEventListener('mouseenter', stopAutoplay);
-                wrapper.addEventListener('mouseleave', startAutoplay);
-                
-                // Initialize
-                createDots();
-                items[0].classList.add('cs-active');
-                startAutoplay();
-            })();
-
-            // Contact Modal
-            (function() {
-                const modal = document.getElementById('contact-modal');
-                const openBtn = document.getElementById('contact-btn');
-                const closeBtn = modal.querySelector('.cs-modal-close');
-                const overlay = modal.querySelector('.cs-modal-overlay');
-                
-                function openModal() {
-                    modal.classList.add('cs-active');
-                    modal.setAttribute('aria-hidden', 'false');
-                    document.body.style.overflow = 'hidden';
-                }
-                
-                function closeModal() {
-                    modal.classList.remove('cs-active');
-                    modal.setAttribute('aria-hidden', 'true');
-                    document.body.style.overflow = '';
-                }
-                
-                openBtn.addEventListener('click', openModal);
-                closeBtn.addEventListener('click', closeModal);
-                overlay.addEventListener('click', closeModal);
-                
-                // Nav contact link opens modal
-                const navContactLink = document.getElementById('nav-contact-link');
-                navContactLink.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    openModal();
-                });
-                
-                // Close on Escape key
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && modal.classList.contains('cs-active')) {
-                        closeModal();
-                    }
-                });
-                
-                // Save Contact (vCard download) - reusable function
-                function downloadVCard() {
-                    const vCard = `BEGIN:VCARD
-VERSION:3.0
-N:Forster;Randy;;;
-FN:Randy Forster
-TITLE:Comedy Magician
-TEL;TYPE=CELL:+17036285154
-EMAIL:grforster@gmail.com
-ADR;TYPE=WORK:;;Bethany Beach;Delaware;;;USA
-URL:https://randyforster.com
-NOTE:Comedy Magician - Magic & Fun For All Occasions
-END:VCARD`;
-                    
-                    // Create blob and download with proper filename
-                    const blob = new Blob([vCard], { type: 'text/vcard' });
-                    const url = URL.createObjectURL(blob);
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.download = 'Randy_Forster.vcf';
-                    link.style.display = 'none';
-                    document.body.appendChild(link);
-                    link.click();
-                    
-                    // Cleanup after a short delay
-                    setTimeout(() => {
-                        document.body.removeChild(link);
-                        URL.revokeObjectURL(url);
-                    }, 100);
-                }
-                
-                // Modal save contact button
-                const saveContactBtn = document.getElementById('save-contact-btn');
-                saveContactBtn.addEventListener('click', downloadVCard);
-                
-                // Footer save contact button
-                const footerSaveContactBtn = document.getElementById('footer-save-contact');
-                footerSaveContactBtn.addEventListener('click', downloadVCard);
-            })();
-        </script>                                           
+        <script src="js/nav.js" defer></script>
+        <script src="js/dark.js" defer></script>
+        <script src="js/main.js" defer></script>                                           
     </body>
 
 
