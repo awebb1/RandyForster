@@ -128,25 +128,39 @@
     #testimonials .cs-carousel-dots {
         display: flex;
         justify-content: center;
-        gap: 0.5rem;
+        gap: 0.75rem;
         flex-wrap: wrap;
     }
     #testimonials .cs-carousel-dot {
-        width: 0.5rem;
-        height: 0.5rem;
-        background: #ccc;
+        /* Touch target: 44x44px minimum for accessibility */
+        width: 2.75rem;
+        height: 2.75rem;
+        background: transparent;
         border: none;
         border-radius: 50%;
         cursor: pointer;
-        transition: background-color 0.3s, transform 0.3s;
+        transition: transform 0.3s;
         padding: 0;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-    #testimonials .cs-carousel-dot:hover {
+    /* Visual dot inside the touch target */
+    #testimonials .cs-carousel-dot::after {
+        content: '';
+        width: 0.625rem;
+        height: 0.625rem;
+        background: #ccc;
+        border-radius: 50%;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+    #testimonials .cs-carousel-dot:hover::after {
         background: var(--primary);
     }
-    #testimonials .cs-carousel-dot.cs-active {
+    #testimonials .cs-carousel-dot.cs-active::after {
         background: var(--primary);
-        transform: scale(1.5);
+        transform: scale(1.4);
     }
 }
 
@@ -186,11 +200,11 @@
     body.dark-mode #testimonials .cs-carousel-arrow:hover {
         background: var(--bodyTextColorWhite);
     }
-    body.dark-mode #testimonials .cs-carousel-dot {
+    body.dark-mode #testimonials .cs-carousel-dot::after {
         background: rgba(255, 255, 255, 0.3);
     }
-    body.dark-mode #testimonials .cs-carousel-dot:hover,
-    body.dark-mode #testimonials .cs-carousel-dot.cs-active {
+    body.dark-mode #testimonials .cs-carousel-dot:hover::after,
+    body.dark-mode #testimonials .cs-carousel-dot.cs-active::after {
         background: var(--primaryLight);
     }
 }

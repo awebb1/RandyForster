@@ -81,6 +81,7 @@
             </div>
         </header>
 
+        <main>
         <!-- ============================================ -->
         <!--                   Hero                       -->
         <!-- ============================================ -->
@@ -309,6 +310,8 @@
                 </button>
             </div>
         </section>
+
+        </main>
 
         <!-- ============================================ -->
         <!--                   Footer                     -->
@@ -558,25 +561,21 @@ URL:https://randyforster.com
 NOTE:Comedy Magician - Magic & Fun For All Occasions
 END:VCARD`;
                     
-                    // Check if mobile device
-                    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                    // Create blob and download with proper filename
+                    const blob = new Blob([vCard], { type: 'text/vcard' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'Randy_Forster.vcf';
+                    link.style.display = 'none';
+                    document.body.appendChild(link);
+                    link.click();
                     
-                    if (isMobile) {
-                        // Use data URI for mobile - triggers native contact handler
-                        const dataUri = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vCard);
-                        window.location.href = dataUri;
-                    } else {
-                        // Use blob download for desktop
-                        const blob = new Blob([vCard], { type: 'text/vcard;charset=utf-8' });
-                        const url = URL.createObjectURL(blob);
-                        const link = document.createElement('a');
-                        link.href = url;
-                        link.download = 'Randy_Forster.vcf';
-                        document.body.appendChild(link);
-                        link.click();
+                    // Cleanup after a short delay
+                    setTimeout(() => {
                         document.body.removeChild(link);
                         URL.revokeObjectURL(url);
-                    }
+                    }, 100);
                 }
                 
                 // Modal save contact button
