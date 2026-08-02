@@ -6,8 +6,9 @@
 @media only screen and (min-width: 0rem) {
     #hero {
         padding: var(--sectionPadding);
-        /* 112px - 200px */
-        padding-top: clamp(7rem, 15vw, 12.5rem);
+        /* 112px - 140px; the nav is fixed at ~88px, so this clears it without
+           leaving a dead gap that pushes the poster below the fold */
+        padding-top: clamp(7rem, 10vw, 8.75rem);
         padding-right: 0;
     }
     #hero .cs-container {
@@ -145,9 +146,10 @@
         filter: grayscale(1);
     }
     #hero .cs-stat-group {
-        width: 100%;
-        border-radius: 1.25rem 0 0 1.25rem;
-        aspect-ratio: 0.92696629;
+        /* width matches the full poster's own ratio so nothing gets cropped off */
+        width: min(100%, 21.4rem);
+        border-radius: 1.25rem;
+        aspect-ratio: 0.61827;
         /* clips the corners around the border radius */
         overflow: hidden;
         display: flex;
@@ -404,16 +406,37 @@
         max-width: 100%;
         flex-direction: row;
         justify-content: flex-end;
+        /* top-aligns the poster with the headline instead of centring it on the
+           much taller text column, which pushed its bottom past the fold */
+        align-items: flex-start;
     }
     #hero .cs-content {
         width: 45%;
         padding: 0;
     }
     #hero .cs-stat-group {
+        /* keeps the original 45% footprint so the text column stays put; the
+           picture inside is narrower and pins itself to the right edge */
         width: 45%;
         max-height: 46.0625rem;
         aspect-ratio: 0.92647059;
         flex: none;
+        justify-content: center;
+        align-items: stretch;
+        border-radius: 0;
+        overflow: visible;
+    }
+    #hero .cs-background {
+        /* sized off the poster's own ratio so the whole image shows uncropped */
+        position: relative;
+        top: auto;
+        left: auto;
+        width: auto;
+        height: 100%;
+        aspect-ratio: 0.61827;
+        border-radius: 1.25rem;
+        overflow: hidden;
+        z-index: 1;
     }
     #hero .cs-stat-box {
         /* 126px - 221px */
